@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1244</width>
+    <height>854</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" colspan="4">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_embedding">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="mouseTracking">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Embedding </string>
+          </property>
+          <property name="margin">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox_embedding">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>Select Embedding </string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Distil Bert</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>TF.IDF</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>BERT</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Word2Vec</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_dimension_reducer">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="mouseTracking">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Dimension Reducer</string>
+          </property>
+          <property name="margin">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox_dimension_reducer">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>Select Dimension Reducer</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Principal component analysis (PCA)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Linear discriminant analysis (LDA)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Non-negative Matrix Factorization (NMF)</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>T-Distributed Stochastic Neighbor Embedding (T-SNE)</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_clustering">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="mouseTracking">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>Clustering</string>
+          </property>
+          <property name="margin">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox_clustering">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <item>
+           <property name="text">
+            <string>Select Clustering</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>K-Means </string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>DBSCAN</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Gaussian Mixture Model</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Affinity Propagation </string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>OPTICS</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Agglomerative Hierarchy</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Mean Shift </string>
+           </property>
+          </item>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_cluster_count">
+          <property name="font">
+           <font>
+            <pointsize>16</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Cluster Count</string>
+          </property>
+          <property name="margin">
+           <number>10</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="leftMargin">
+           <number>5</number>
+          </property>
+          <property name="rightMargin">
+           <number>5</number>
+          </property>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_cluster_count">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>2</string>
+            </property>
+            <property name="maxLength">
+             <number>32768</number>
+            </property>
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+            <property name="placeholderText">
+             <string>0</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_cluster_increase">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>+</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_cluster_decrease">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>-</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="3">
+     <widget class="QLabel" name="label_column_embed">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Column to Embed</string>
+      </property>
+      <property name="margin">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QPushButton" name="pushButton_refresh_list">
+      <property name="text">
+       <string>Refresh List</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" rowspan="5" colspan="3">
+     <widget class="QTableWidget" name="tableWidget_data_preview">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_data_preview">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Data Preview</string>
+      </property>
+      <property name="margin">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLabel" name="label_data_select">
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="mouseTracking">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string>Data Select</string>
+      </property>
+      <property name="margin">
+       <number>10</number>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QComboBox" name="comboBox_dataset_select">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <item>
+       <property name="text">
+        <string>Select Dataset</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="6" column="3">
+     <layout class="QVBoxLayout" name="verticalLayout_data_columns">
+      <item>
+       <widget class="QListWidget" name="listWidget_data_columns">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <item>
+         <property name="text">
+          <string>New Item</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_show_results">
+        <property name="text">
+         <string>Show Results</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item row="8" column="1">
+     <widget class="QPushButton" name="pushButton_delete_data">
+      <property name="text">
+       <string>Delete Data</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1244</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuPages">
+    <property name="title">
+     <string>Pages</string>
+    </property>
+    <addaction name="actionData_2"/>
+    <addaction name="actionMultipleComparision_2"/>
+   </widget>
+   <addaction name="menuPages"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionData">
+   <property name="text">
+    <string>Data</string>
+   </property>
+  </action>
+  <action name="actionMultipleComp">
+   <property name="text">
+    <string>Multiple Comparision</string>
+   </property>
+  </action>
+  <action name="actionComparision">
+   <property name="text">
+    <string>Comparision</string>
+   </property>
+  </action>
+  <action name="actionMultipleComparision">
+   <property name="text">
+    <string>MultipleComparision</string>
+   </property>
+  </action>
+  <action name="actionData_2">
+   <property name="text">
+    <string>Data</string>
+   </property>
+  </action>
+  <action name="actionMultipleComparision_2">
+   <property name="text">
+    <string>MultipleComparision</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,35 @@
+[project]
+name = "search-engines-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.9.3",
+    "nltk>=3.9.1",
+    "torch>=2.5.1",
+    "scipy==1.10.0",
+    "numpy==1.26.4",
+    "pandas>=2.2.3",
+    "pyqt5>=5.15.9",
+    "pyqt5-tools==5.15.9.3.3",
+    "pyqt5-qt5>=5.15.2 ; platform_system != 'Windows'",
+    "pyqt5-qt5==5.15.2 ; platform_system == 'Windows'",
+    "scikit-learn>=1.5.2",
+    "sentence-transformers>=3.3.1",
+    "gensim>=4.3.2",
+    "pip>=24.3.1",
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu118"},
+]
+torchvision = [
+    { index = "pytorch-cu118"},
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true

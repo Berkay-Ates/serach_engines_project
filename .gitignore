@@ -1,0 +1,7 @@
+*.ipynb
+*.png
+/Data
+.vscode
+__pycache__
+glove.6B
+.venv
