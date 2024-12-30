@@ -17,8 +17,11 @@ class Clustering_Methods:
     def __init__(self, cluster_count):
         self.cluster_count = cluster_count
 
-    def random_forest_clustering(self, data: pd.DataFrame):
+    def random_forest_clustering(self, data: pd.DataFrame, hyper_parameters):
         # Extract embeddings, labels, and text
+        print("-" * 100)
+        print(hyper_parameters.get_parameters())
+        print("-" * 100)
         embeddings = np.array(data["embeddings"].tolist())
         labels = data["label"].values  # Convert to array for consistent indexing
         texts = data["text"].values  # Convert to array for consistent indexing
@@ -32,8 +35,19 @@ class Clustering_Methods:
         test_texts = pd.DataFrame(test_texts, columns=["test_texts"]).reset_index(drop=True)
         test_labels = pd.DataFrame(test_labels, columns=["test_labels"]).reset_index(drop=True)
 
-        # Train the Random Forest model
-        random_forest = RandomForestClassifier(n_estimators=100, random_state=42)
+        # * n_estimators: Number of trees in the forest.
+        # * max_depth: Maximum depth of the tree.
+        # * min_samples_split: Minimum number of samples required to split a node.
+        # * min_samples_leaf: Minimum number of samples required at a leaf node.
+        # * max_features: Number of features to consider for the best split.
+        # * Train the Random Forest model
+        random_forest = RandomForestClassifier(
+            n_estimators=hyper_parameters.get_parameters()["n_estimators"],
+            random_state=42,
+            max_depth=hyper_parameters.get_parameters()["max_depth"],
+            min_samples_split=hyper_parameters.get_parameters()["min_samples_split"],
+            min_samples_leaf=hyper_parameters.get_parameters()["min_samples_leaf"],
+        )
         random_forest.fit(X_train, train_labels)
         predicted_labels = random_forest.predict(X_test)
 
@@ -55,7 +69,10 @@ class Clustering_Methods:
             accuracy,
         )
 
-    def svm_clustering(self, data: pd.DataFrame):
+    def svm_clustering(self, data: pd.DataFrame, hyper_parameters):
+        print("-" * 100)
+        print(hyper_parameters.get_parameters())
+        print("-" * 100)
         # Extract embeddings, labels, and text
         embeddings = np.array(data["embeddings"].tolist())
         labels = data["label"].values  # Convert to array for consistent indexing
@@ -70,7 +87,14 @@ class Clustering_Methods:
         test_texts = pd.DataFrame(test_texts, columns=["test_texts"]).reset_index(drop=True)
         test_labels = pd.DataFrame(test_labels, columns=["test_labels"]).reset_index(drop=True)
 
-        svm = SVC(kernel="linear")  # Lineer kernel ile SVM modelini oluştur
+        # * C: Regularization parameter. Higher values lead to stricter margin constraints.
+        # * kernel: Kernel type (linear, poly, rbf, sigmoid).
+        # * gamma: Kernel coefficient for rbf, poly, and sigmoid.
+        # * degree: Degree of the polynomial kernel (used for poly kernel).
+        svm = SVC(
+            kernel=hyper_parameters.get_parameters()["kernel"],
+            C=hyper_parameters.get_parameters()["c"],
+        )  # Lineer kernel ile SVM modelini oluştur
         svm.fit(X_train, train_labels)
         predicted_labels = svm.predict(X_test)
 
@@ -91,8 +115,11 @@ class Clustering_Methods:
             accuracy,
         )
 
-    def naive_bayes_clustering(self, data: pd.DataFrame):
+    def naive_bayes_clustering(self, data: pd.DataFrame, hyper_parameters):
         # Extract embeddings, labels, and text
+        print("-" * 100)
+        print(hyper_parameters.get_parameters())
+        print("-" * 100)
         embeddings = np.array(data["embeddings"].tolist())
         labels = data["label"].values
         texts = data["text"].values
@@ -112,7 +139,7 @@ class Clustering_Methods:
         test_labels = pd.DataFrame(test_labels, columns=["test_labels"]).reset_index(drop=True)
 
         # Train MultinomialNB
-        naive_bayes = MultinomialNB()
+        naive_bayes = MultinomialNB(alpha=hyper_parameters.get_parameters()["alpha"])
         naive_bayes.fit(X_train, train_labels)
         predicted_labels = naive_bayes.predict(X_test)
 
@@ -133,5 +160,5 @@ class Clustering_Methods:
             accuracy,
         )
 
-    def custom_model(self, data: pd.DataFrame):
-        pass
+    # def custom_model(self, data: pd.DataFrame):
+    #     pass

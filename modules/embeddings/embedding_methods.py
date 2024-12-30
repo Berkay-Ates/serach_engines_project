@@ -15,33 +15,38 @@ class EmbeddingMethods:
     def __init__(self) -> None:
         pass
 
-    def albert_embeddings(self, data):
-        print("albert_running")
-        model_name = "albert-base-v2"
-        embedder = SentenceTransformer(model_name)
-        return embedder.encode(data)
+    # def albert_embeddings(self, data):
+    #     print("albert_running")
+    #     model_name = "albert-base-v2"
+    #     embedder = SentenceTransformer(model_name)
+    #     return embedder.encode(data)
 
-    def bert_embedding(self, data):
-        print("bert_running")
-        # Model ve tokenizer yükleme
-        model_name = "bert-base-multilingual-cased"
-        embedder = SentenceTransformer(model_name)
-        return embedder.encode(data)
+    # def bert_embedding(self, data):
+    #     print("bert_running")
+    #     # Model ve tokenizer yükleme
+    #     model_name = "bert-base-multilingual-cased"
+    #     embedder = SentenceTransformer(model_name)
+    #     return embedder.encode(data)
 
     def distil_bert_embedding(self, data: list):
         print("distil-bert-running")
         embedder = SentenceTransformer("distilbert-base-nli-mean-tokens")
-        return embedder.encode(data)
+        res = embedder.encode(data)
+        res_list = [i for i in res]
+        return res_list
 
     def tf_idf_embedding(self, data: list):
         print("tf-idf-running")
         embedder = TfidfVectorizer()
-        return embedder.fit_transform(data).toarray()
+        res = embedder.fit_transform(data).toarray()
+        res_list = [i for i in res]
+        print("-" * 50, type(res), res.shape, res_list[0].shape, "-" * 50)
+        return res_list
 
-    def bag_of_words_embedding(self, data: list):
-        print("bag_of_word_running")
-        embedder = CountVectorizer()
-        return embedder.fit_transform(data).toarray()
+    # def bag_of_words_embedding(self, data: list):
+    #     print("bag_of_word_running")
+    #     embedder = CountVectorizer()
+    #     return embedder.fit_transform(data).toarray()
 
     def word2vec_embedding(self, data: list):
         print("word2Vec Running")

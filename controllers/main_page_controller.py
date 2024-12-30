@@ -5,10 +5,16 @@ from .data_page_controller import DataPageController
 from .result_page_controller import ResultPageController
 from .multiple_cmp_select_page_cntrl import MultipleComparisionSelectController
 
+
 import os
 import pandas as pd
 from utilities.show_messages import show_error_message, notification_message
-from modules.model.embed_param_model import EmbedParameters
+from modules.model.embed_param_model import (
+    EmbedParameters,
+    SVMHyperParameters,
+    NaiveBayesHyperParameters,
+    RandomForestHyperParameters,
+)
 from modules.constants.constants import Constants
 
 
@@ -21,6 +27,7 @@ class MainPageController(QMainWindow):
         self.multiple_comp_select_page_contr = None
         self.main_page_view.setupUi(self)
         self.add_combobox_items()
+        self.hide_hyper_parameters()
 
         self.result_pages = []
 
@@ -48,6 +55,38 @@ class MainPageController(QMainWindow):
         self.main_page_view.pushButton_delete_data.clicked.connect(self.delete_dataset)
         self.main_page_view.pushButton_refresh_list.clicked.connect(self.add_data_files)
 
+    def hide_hyper_parameters(self):
+        self.main_page_view.groupBox_naive_bayes.setVisible(False)
+        self.main_page_view.groupBox_random_forest.setVisible(False)
+        self.main_page_view.groupBox_svm.setVisible(False)
+
+    def show_hyper_parameters(self, clustering_method):
+        self.hide_hyper_parameters()
+        if clustering_method == "naive_bayes_clustering":
+            self.main_page_view.groupBox_naive_bayes.setVisible(True)
+        elif clustering_method == "random_forest_clustering":
+            self.main_page_view.groupBox_random_forest.setVisible(True)
+        elif clustering_method == "svm_clustering":
+            self.main_page_view.groupBox_svm.setVisible(True)
+
+    def get_hyper_parameters(self):
+        if self.clustering == "naive_bayes_clustering":
+            return NaiveBayesHyperParameters(alpha=self.main_page_view.lineEdit_naive_bayes_alpha.text())
+        elif self.clustering == "random_forest_clustering":
+            return RandomForestHyperParameters(
+                n_estimators=self.main_page_view.lineEdit_rf_n_estim.text(),
+                max_depth=self.main_page_view.lineEdit_rf_max_dept.text(),
+                min_samples_split=self.main_page_view.lineEdit_rf_min_samp_split.text(),
+                min_samples_leaf=self.main_page_view.lineEdit_rf_min_samp_leaf.text(),
+            )
+        elif self.clustering == "svm_clustering":
+            return SVMHyperParameters(
+                c=self.main_page_view.lineEdit_svm_c.text(),
+                kernel=self.main_page_view.comboBox_svm_kernel.currentText(),
+            )
+
+        return None
+
     def delete_dataset(self):
         if self.data_path is not None:
             result = notification_message(f"The file {self.data_path} would be deleted")
@@ -65,6 +104,8 @@ class MainPageController(QMainWindow):
 
     def set_clustering(self):
         self.clustering = self.main_page_view.comboBox_clustering.currentText()
+        self.hide_hyper_parameters()
+        self.show_hyper_parameters(self.clustering)
 
     def set_embedding(self):
         self.embedding = self.main_page_view.comboBox_embedding.currentText()
@@ -88,6 +129,7 @@ class MainPageController(QMainWindow):
                 data_path=self.data_path,
                 data_column_name=self.data_column,
                 data=self.data,
+                hyper_parameters=self.get_hyper_parameters(),
             )
             page = ResultPageController(parameters)
             self.result_pages.append(page)

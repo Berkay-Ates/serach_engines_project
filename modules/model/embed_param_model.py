@@ -1,4 +1,74 @@
+import dataclasses
 import pandas as pd
+from typing import Protocol
+from typing_extensions import override
+
+
+class HyperParameters(Protocol):
+    """
+    This is a protocol class that defines the structure of a message.
+    """
+
+    def get_parameters(self): ...
+
+
+class SVMHyperParameters(HyperParameters):
+    @override
+    def __init__(self, c=1.0, kernel="rbf"):
+        # if c is str convert to float
+        if isinstance(c, str):
+            c = float(c)
+
+        self._c = c
+        self._kernel = kernel
+
+    @override
+    def get_parameters(self):
+        # return as a dict
+        return {"c": self._c, "kernel": self._kernel}
+
+
+class RandomForestHyperParameters(HyperParameters):
+    @override
+    def __init__(self, n_estimators=100, max_depth=5, min_samples_split=2, min_samples_leaf=1):
+        # convert those values to int if they are str
+        if isinstance(n_estimators, str):
+            n_estimators = int(n_estimators)
+        if isinstance(max_depth, str):
+            max_depth = int(max_depth)
+        if isinstance(min_samples_split, str):
+            min_samples_split = int(min_samples_split)
+        if isinstance(min_samples_leaf, str):
+            min_samples_leaf = int(min_samples_leaf)
+
+        self._n_estimators = n_estimators
+        self._max_depth = max_depth
+        self._min_samples_split = min_samples_split
+        self._min_samples_leaf = min_samples_leaf
+
+    @override
+    def get_parameters(self):
+        # return as a dict
+        return {
+            "n_estimators": self._n_estimators,
+            "max_depth": self._max_depth,
+            "min_samples_split": self._min_samples_split,
+            "min_samples_leaf": self._min_samples_leaf,
+        }
+
+
+class NaiveBayesHyperParameters(HyperParameters):
+    @override
+    def __init__(self, alpha=1.0):
+        # if alpha is str convert to float
+        if isinstance(alpha, str):
+            alpha = float(alpha)
+        self._alpha = alpha
+
+    @override
+    def get_parameters(self):
+        # return as a dict
+        return {"alpha": self._alpha}
 
 
 class EmbedParameters:
@@ -11,6 +81,7 @@ class EmbedParameters:
         data: pd.DataFrame = "no Data Frame",
         embedding_method="No Embed",
         cluster_count: int = 2,
+        hyper_parameters: HyperParameters = None,
     ) -> None:
         self._embedding_method = embedding_method
         self._clustering_method = clustering_method
@@ -19,6 +90,7 @@ class EmbedParameters:
         self._data_path = data_path
         self._data_column_name = data_column_name
         self._data = data
+        self._hyper_parameters = hyper_parameters
 
     def __str__(self):
         return (
@@ -81,6 +153,14 @@ class EmbedParameters:
     @property
     def data_column_name(self):
         return self._data_column_name
+
+    @property
+    def hyper_parameters(self):
+        return self._hyper_parameters
+
+    @data.setter
+    def data(self, hyper_parameters: HyperParameters):
+        self._hyper_parameters = hyper_parameters
 
     @data.setter
     def data(self, data: pd.DataFrame):
