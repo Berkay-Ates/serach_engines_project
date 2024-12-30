@@ -112,6 +112,7 @@ class EmbedParameters:
             data=self._data.copy() if self._data is not None else None,
             embedding_method=self._embedding_method,
             cluster_count=self._cluster_count,
+            hyper_parameters=self._hyper_parameters,
         )
 
     def is_inited(self):
@@ -158,8 +159,8 @@ class EmbedParameters:
     def hyper_parameters(self):
         return self._hyper_parameters
 
-    @data.setter
-    def data(self, hyper_parameters: HyperParameters):
+    @hyper_parameters.setter
+    def hyper_parameters(self, hyper_parameters: HyperParameters):
         self._hyper_parameters = hyper_parameters
 
     @data.setter

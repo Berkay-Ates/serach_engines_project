@@ -23,6 +23,8 @@ class MultipleComparisionResultController(QMainWindow):
 
         self.manager1 = Manager(self.param1)
         self.manager2 = Manager(self.param2)
+        self.manager1.hyper_parameters = self.param1.hyper_parameters
+        self.manager2.hyper_parameters = self.param2.hyper_parameters
 
         self.embed_results1 = None
         self.result_df1 = None

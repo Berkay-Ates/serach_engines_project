@@ -5,7 +5,12 @@ from controllers.data_popup_controller import DataPopupController
 from controllers.multiple_cmp_result_page_cntrl import MultipleComparisionResultController
 from modules.constants.constants import Constants
 from view_py_files.multiple_cmp_select_page import Ui_MainWindow as ComparisionSelectPage
-from modules.model.embed_param_model import EmbedParameters
+from modules.model.embed_param_model import (
+    EmbedParameters,
+    SVMHyperParameters,
+    RandomForestHyperParameters,
+    NaiveBayesHyperParameters,
+)
 
 from utilities.show_messages import show_error_message, notification_message
 
@@ -114,6 +119,10 @@ class MultipleComparisionSelectController(QMainWindow):
         print(self.parameters1, self.parameters2)
         print(self.parameters1.data.columns)
         print(self.parameters2.data.columns)
+        print("------------------------------*****************************---------------------------")
+        print(self.parameters1.hyper_parameters.get_parameters())
+        print(self.parameters2.hyper_parameters.get_parameters())
+        print("-----------------------------******************************----------------------------")
 
         # * dataframe diger sayfada islenecegi icin bozulabilir dolayisiyla kopyasini yollayalim
         page = MultipleComparisionResultController(self.parameters1.__copy__(), self.parameters2.__copy__())
@@ -136,6 +145,14 @@ class MultipleComparisionSelectController(QMainWindow):
 
     def set_clustering(self, params: EmbedParameters, comboBox: QComboBox):
         params.clustering_method = comboBox.currentText()
+        if params.clustering_method == "naive_bayes_clustering":
+            params.hyper_parameters = NaiveBayesHyperParameters(alpha=1)
+        elif params.clustering_method == "svm_clustering":
+            params.hyper_parameters = SVMHyperParameters(c=1.0, kernel="rbf")
+        elif params.clustering_method == "random_forest_clustering":
+            params.hyper_parameters = RandomForestHyperParameters(
+                n_estimators=100, max_depth=2, min_samples_split=2, min_samples_leaf=1
+            )
 
     def set_embedding(self, params: EmbedParameters, comboBox: QComboBox):
         params.embedding_method = comboBox.currentText()
